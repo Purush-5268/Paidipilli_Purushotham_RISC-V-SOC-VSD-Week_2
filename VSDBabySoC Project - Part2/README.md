@@ -143,9 +143,10 @@ sandpiper-saas -i ./src/module/*.tlv \
 You can confirm this by listing the files:
 
 ```bash
-spatha@spatha-VirtualBox:~$ cd VLSI/VSDBabySoC/
-spatha@spatha-VirtualBox:~/VLSI/VSDBabySoC$ ls src/module/
-avsddac.v  avsdpll.v  clk_gate.v  pseudo_rand_gen.sv  pseudo_rand.sv  rvmyth_gen.v  rvmyth.tlv  rvmyth.v  testbench.rvmyth.post-routing.v  testbench.v  vsdbabysoc.v
+purushotham@Purushotham:~$ cd VLSI/VSDBabySoC/
+purushotham@Purushotham:~/VLSI/VSDBabySoC$ ls src/module/
+avsddac.v  clk_gate.v    pseudo_rand_gen.sv  rvmyth_gen.v  rvmyth.v           testbench.rvmyth.post-routing.v  vsdbabysoc.synth.v
+avsdpll.v  primitives.v  pseudo_rand.sv      rvmyth.tlv    sky130_fd_sc_hd.v  testbench.v                      vsdbabysoc.v
 ```
 
 ---
@@ -230,7 +231,7 @@ yosys
 read_verilog -sv -I src/include/ -I src/module/ src/module/vsdbabysoc.v src/module/clk_gate.v src/module/rvmyth.v
 
 # Read Standard Cell Library (for mapping logic gates)
-read_liberty -lib /home/harshithapati/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_liberty -lib src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 
 # Read Behavioral/Analog IP Liberty Files (for black-boxing during synthesis)
 read_liberty -lib src/lib/avsddac.lib
@@ -240,7 +241,7 @@ read_liberty -lib src/lib/avsdpll.lib
 synth -top vsdbabysoc
 
 # Optimization pass using ABC tool
-abc -liberty /home/harshithapati/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 
 # Output the gate-level netlist
 write_verilog vsdbabysoc.synth.v
@@ -282,8 +283,7 @@ cp ../sky130RTLDesignAndSynthesisWorkshop/my_lib/verilog_model/sky130_fd_sc_hd.v
 cd ~/VLSI/VSDBabySoC
 mkdir -p output/post_synth_sim
 
-iverilog -o output/post_synth_sim/post_synth_sim.out \
-    -DPOST_SYSTH_SIM \
+iverilog -o output/post_synth_sim/post_synth_sim.out -DPOST_SYSTH_SIM \
     -I src/include \
     -I output/synthesized \
     src/module/testbench.v \
