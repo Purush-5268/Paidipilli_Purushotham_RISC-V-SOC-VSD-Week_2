@@ -194,7 +194,7 @@ gtkwave output/pre_synth_sim/pre_synth_sim.vcd
 
 <img width="1920" height="1080" alt="GTKwave presynthesis" src="https://github.com/user-attachments/assets/7258f4ae-5249-4995-9e6d-a20dc37d091c" />
 
-⚙ **Change Data Format of OUT** 
+⚙ **Change Data Format of OUT to get above OUT** 
 
 <img width="1920" height="1080" alt="GTk Wave Setting" src="https://github.com/user-attachments/assets/30100c1b-cf2a-45fe-839e-ca8e8b615f0b" />
 
